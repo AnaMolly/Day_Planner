@@ -3,21 +3,13 @@ $("#currentDay").text(today.format("MMM Do, YYYY"))
 
 var saveButton=$(".savebutton")
 
+clearPlanner()
 timeColours();
+renderTasks();
 
 function timeColours(currentTime){
  
     var currentTime = today.format("h:mm:ss a")
-
-    if (moment(currentTime, "h:mm:ss a").isBefore(moment('08:00:00', "h:mm:ss a")) ){
-        $("#textbox8").css("background-color","rgb(191, 255, 191)")
-    } else if (moment(currentTime, "h:mm:ss a").isBetween(moment('08:00:00', "h:mm:ss a"), moment('08:59:59 ', "h:mm:ss a")) ) {
-        $("#textbox8").css("background-color","lightpink")
-    }
-    else if (moment(currentTime, "h:mm:ss a").isAfter(moment('08:59:59 ', "h:mm:ss a")) ) {
-        $("#textbox8").css("background-color","lightgray")
-    }
-
 
     if (moment(currentTime, "h:mm:ss a").isBefore(moment('09:00:00', "h:mm:ss a")) ){
         $("#textbox9").css("background-color","rgb(191, 255, 191)")
@@ -109,7 +101,14 @@ function timeColours(currentTime){
 }
 
 function renderTasks(){
+    $(".taskblock").each( function () {
+        var id = $(this).attr("id")
+        var inputs = localStorage.getItem(id);
 
+        if(inputs !== null){
+            $(this).children(".textarea").val(inputs)
+        }
+    })
 }
 
 saveButton.on("click", function(event){
@@ -119,3 +118,10 @@ saveButton.on("click", function(event){
 
     localStorage.setItem(time, userTask)
 })
+
+function clearPlanner(currentTime){
+    var currentTime = today.format("h:mm:ss a")
+   if((moment(currentTime, "h:mm:ss a").isAfter(moment('23:59:59 ', "h:mm:ss a")) )){
+       localStorage.clear();
+   }
+}
