@@ -102,26 +102,26 @@ function timeColours(currentTime){
 
 function renderTasks(){
     $(".taskblock").each( function () {
-        var id = $(this).attr("id")
-        var inputs = localStorage.getItem(id);
+        var taskblockID = $(this).attr("id")
+        var userInputs = localStorage.getItem(taskblockID);
 
-        if(inputs !== null){
-            $(this).children(".textarea").val(inputs)
+        if(userInputs !== null){
+            $(this).children(".textarea").val(userInputs)
         }
     })
 }
 
 saveButton.on("click", function(event){
     event.preventDefault()
-    var time = $(this).parent().attr("id")
-    var userTask = $(this).siblings(".textarea").val()
+    var taskblockID = $(this).parent().attr("id")
+    var userInputs = $(this).siblings(".textarea").val()
 
-    localStorage.setItem(time, userTask)
+    localStorage.setItem(taskblockID, userInputs)
 })
 
 function clearPlanner(currentTime){
     var currentTime = today.format("h:mm:ss a")
-   if((moment(currentTime, "h:mm:ss a").isAfter(moment('23:59:59 ', "h:mm:ss a")) )){
+   if((moment(currentTime, "h:mm:ss a").isAfter(moment('23:59:59', "h:mm:ss a")) )){
        localStorage.clear();
    }
 }
