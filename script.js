@@ -117,8 +117,8 @@ saveButton.on("click", function(event){
 })
 
 function clearPlanner(currentTime){
-    var currentTime = today.format("h:mm:ss a")
-   if((moment(currentTime, "h:mm:ss a").isAfter(moment('23:59:59', "h:mm:ss a")) )){
+    var tomorrow=moment().add(1,'days')
+    if(tomorrow==true){
        localStorage.clear();
    }
 }
