@@ -104,10 +104,7 @@ function renderTasks(){
     $(".taskblock").each( function () {
         var taskblockID = $(this).attr("id")
         var userInputs = localStorage.getItem(taskblockID);
-
-        if(userInputs !== null){
-            $(this).children(".textarea").val(userInputs)
-        }
+        $(this).children(".textarea").val(userInputs)
     })
 }
 
